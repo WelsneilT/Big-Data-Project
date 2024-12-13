@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Predictive Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+    <style>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .glass-morphism {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.125);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-black min-h-screen flex items-center justify-center text-white">
+    <div class="container mx-auto max-w-md">
+        <div class="glass-morphism rounded-2xl shadow-2xl p-8 animate-fade-in">
+            <div class="flex items-center justify-between mb-6">
+                <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
+                    Real-Time Prediction
+                </h1>
+                <div id="live-indicator" class="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
+            </div>
+
+            <div class="space-y-4" id="record-list">
+                {% for key, value in last_record.items() %}
+                    {% if key == 'Price' %}
+                        <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
+                            <strong class="text-gray-400">{{ key }}:</strong> 
+                            <span class="text-2xl font-bold text-cyan-400 ml-2">{{ value | format_currency }}</span> 
+                            <span class="text-gray-500">VNĐ</span>
+                        </div>
+                    {% elif key == 'RAM' %}
+                        <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-all duration-300">
+                            <strong class="text-gray-400">{{ key }}:</strong> 
+                            <span class="text-white ml-2">{{ value | format_currency }}</span>
+                            <span class="text-gray-500">GB</span>
+                        </div>
+                    {% elif key == 'Storage' %}
+                        <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-all duration-300">
+                            <strong class="text-gray-400">{{ key }}:</strong> 
+                            <span class="text-white ml-2">{{ value | format_currency }}</span>
+                            <span class="text-gray-500">GB</span>
+                        </div>
+                    {% elif key == 'Screen_size' %}
+                        <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-all duration-300">
+                            <strong class="text-gray-400">{{ key }}:</strong> 
+                            <span class="text-white ml-2">{{ value }}</span>
+                            <span class="text-gray-500">inches</span>
+                        </div>
+                    {% elif key == 'Battery' %}
+                        <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-all duration-300">
+                            <strong class="text-gray-400">{{ key }}:</strong> 
+                            <span class="text-white ml-2">{{ value | format_currency }}</span>
+                            <span class="text-gray-500">mAh</span>
+                        </div>
+                    {% else %}
+                        <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-all duration-300">
+                            <strong class="text-gray-400">{{ key }}:</strong> 
+                            <span class="text-white ml-2">{{ value }}</span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="mt-6 text-sm text-gray-500 text-center">
+                Last Updated: <span id="timestamp" class="text-cyan-400">Just Now</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced real-time update script
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io();
+            const recordList = document.getElementById('record-list');
+            const liveIndicator = document.getElementById('live-indicator');
+            const timestampElement = document.getElementById('timestamp');
+
+            socket.on('new_prediction', (data) => {
+                // Animate live indicator
+                liveIndicator.classList.add('animate-ping');
+                setTimeout(() => liveIndicator.classList.remove('animate-ping'), 1000);
+
+                // Update timestamp
+                timestampElement.textContent = new Date().toLocaleTimeString();
+
+                // Rebuild record list with new data
+                recordList.innerHTML = Object.entries(data).map(([key, value]) => `
+                    <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
+                        <strong class="text-gray-400">${key}:</strong> 
+                        <span class="${key === 'Price' ? 'text-2xl font-bold text-cyan-400' : 'text-white'} ml-2">
+                            ${value}
+                        </span>
+                        ${key === 'Price' ? '<span class="text-gray-500">DH</span>' : ''}
+                    </div>
+                `).join('');
+            });
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
