@@ -1,10 +1,10 @@
 #########################  Stream layer   #########################
 
 #Start Apache zookeeper
-zookeeper-server-start.bat C:/kafka_2.13_2.6.0/config/zookeeper.properties
+zookeeper-server-start.bat C:/kafka/config/zookeeper.properties
 
 #Start Kafka server
-kafka-server-start.bat C:/kafka_2.13_2.6.0/config/server.properties
+kafka-server-start.bat C:/kafka/config/server.properties
 
 #Create Kafka topic
 kafka-topics.bat --create --topic smartphoneTopic --bootstrap-server localhost:9092
@@ -33,10 +33,10 @@ docker-compose up -d
 spark-shell
 
 #Start Apache zookeeper
-zookeeper-server-start.bat C:/kafka_2.13_2.6.0/config/zookeeper.properties
+zookeeper-server-start.bat C:/kafka/config/zookeeper.properties
 
 #Start Kafka server
-kafka-server-start.bat C:/kafka_2.13_2.6.0/config/server.properties
+kafka-server-start.bat C:/kafka/config/server.properties
 
 #Run the kafka producer
 kafka-console-producer.bat --topic smartphoneTopic --bootstrap-server localhost:9092
