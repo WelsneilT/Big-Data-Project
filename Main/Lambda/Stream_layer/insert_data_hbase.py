@@ -1,6 +1,6 @@
 from datetime import datetime
 import happybase
-
+import pandas as pd
 
 
 
@@ -33,13 +33,13 @@ def insert_dataHbase(data):
         b'info:Storage': bytes(str(data[3]), 'utf-8'),
         b'info:Sim_type': bytes(data[4], 'utf-8'),
         b'info:Battery': bytes(str(data[5]), 'utf-8'),
-        b'info:Price': bytes(str(data[6]), 'utf-8')
+        b'info:Price': bytes(str(data[6]), 'utf-8'),
+        b'info:Model': bytes(str(data[7]), 'utf-8')
     }
 
     table.put(bytes(row_key, 'utf-8'), data_to_insert)
 
     print("Data inserted into HBase: ", data)
-
 
     connection.close()
 

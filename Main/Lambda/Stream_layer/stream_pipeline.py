@@ -1,17 +1,17 @@
 import time
 import sys
-sys.path.append('C:/Downloads/Big-Data-Project/Main')
+sys.path.append('C:/Big-Data-Project/Main')
+
 from Lambda.producer import send_message
 
 from ML_consumer import consum
 import threading
 from Lambda.Stream_data.stream_data import generate_real_time_data
 
-
 def producer_thread():
     while True:
         try:
-            file_path = 'C:/Downloads/Big-Data-Project/Main/Lambda/Stream_data/stream_data.csv'
+            file_path = 'C:/Big-Data-Project/Main/Lambda/Stream_data/stream_data.csv'
             message = generate_real_time_data(file_path)
 
             send_message(message)

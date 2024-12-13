@@ -1,64 +1,124 @@
-import pickle
+import  pickle
 import ast
-import numpy as np
-
-import xgboost as xgb
-
-# Mappings
-brand_mapping = {
-    'Maxfone': 1, 'Infinix': 2, 'Freeyond': 3, 'XIAOMI': 4, 'Tecno': 5,
-    'Oppo': 6, 'Nokia': 7, 'Samsung': 8, 'Huawei': 9, 'Vivo': 10,
-    'Realme': 11, 'Sowhat': 12, 'Apple': 13
-}
-sim_type_mapping = {'Dual': 1, 'Single': 2}
-
-numeric_to_brand = {v: k for k, v in brand_mapping.items()}
-numeric_to_sim_type = {v: k for k, v in sim_type_mapping.items()}
+from xgboost import XGBRegressor
 
 def map_brand_to_numeric(brand):
-    return brand_mapping.get(brand, 14)
+    if brand == 'Maxfone':
+        return 1
+    elif brand == 'Infinix':
+        return 2
+    elif brand == 'Freeyond':
+        return 3
+    elif brand == 'XIAOMI':
+        return 4
+    elif brand == 'Tecno':
+        return 5
+    elif brand == 'Oppo':
+        return 6
+    elif brand == 'Nokia':
+        return 7
+    elif brand == 'Samsung':
+        return 8
+    elif brand == 'Huawei':
+        return 9
+    elif brand == 'Vivo':
+        return 10
+    elif brand == 'Realme':
+        return 11
+    elif brand == 'Sowhat':
+        return 12
+    elif brand == 'Apple':
+        return 13
+    else :
+        return 14
+
+
 
 def map_sim_type_to_numeric(sim_type):
-    return sim_type_mapping.get(sim_type, 3)
+
+    if sim_type == 'Dual':
+        return 1
+    elif sim_type =='Single':
+        return 2
+    else:
+        return 3
+
 
 def map_numeric_to_brand(number):
-    return numeric_to_brand.get(number, 'Unknown')
+    if number == 1:
+        return 'Maxfone'
+    elif number == 2:
+        return 'Infinix'
+    elif number == 3:
+        return 'Freeyond'
+    elif number == 4:
+        return 'XIAOMI'
+    elif number == 5:
+        return 'Tecno'
+    elif number == 6:
+        return 'Oppo'
+    elif number == 7:
+        return 'Nokia'
+    elif number == 8:
+        return 'Samsung'
+    elif number == 9:
+        return 'Huawei'
+    elif number == 10:
+        return 'Vivo'
+    elif number == 11:
+        return 'Realme'
+    elif number == 12:
+        return 'Sowhat'
+    elif number == 13:
+        return 'Apple'
+    else:
+        return 'Unknown'
+
 
 def map_numeric_to_sim_type(number):
-    return numeric_to_sim_type.get(number, 'Unknown')
+    if number == 1:
+        return 'Dual'
+    elif number == 2:
+        return 'Single'
+    else:
+        return 'Unknown'
+
+
+
+
+
+
 
 def transformation(original_list):
-    # Load model with error handling
-    try:
-        model = xgb.Booster()
-     
-        model = pickle.load(open('C:/Downloads/Big-Data-Project/Main/Lambda/ML_operations/xgb_model.pkl', 'rb'))
-    except FileNotFoundError:
-        raise FileNotFoundError("Model file not found at the specified path.")
-    except pickle.UnpicklingError:
-        raise ValueError("Error loading the model. Ensure it's a valid pickle file.")
 
-    # Parse input
-    
+    model = pickle.load(open('C:/Big-Data-Project/Main/Lambda/ML_operations/xgb_model.pkl', 'rb'))
 
-    # Transform input
+    print(original_list)
+    original_list = ast.literal_eval(original_list)
+
+    print(original_list)
+
     new_list = [
-        map_brand_to_numeric(original_list[1]),
-        float(original_list[3]),
-        float(original_list[4]),
-        float(original_list[5]),
-        map_sim_type_to_numeric(original_list[7]),
-        float(original_list[8])
+        map_brand_to_numeric(original_list[1]),  # Brand name
+        float(original_list[3]),  # Screen size
+        float(original_list[4]),  # RAM
+        float(original_list[5]),  # Storage
+        map_sim_type_to_numeric(original_list[7]),  # sim type
+        float(original_list[8])  # Battery capacity
     ]
+    print(new_list)
 
-    # Make prediction
-    price = model.predict(np.array(new_list).reshape(1, -1))
+    price = model.predict([new_list])
 
-    # Map back to original representation
-    new_list[0] = map_numeric_to_brand(new_list[0])
-    new_list[4] = map_numeric_to_sim_type(new_list[4])
 
-    # Append predicted price
-    new_list.extend(price)
+    new_list[0] = map_numeric_to_brand(float(new_list[0]))
+    new_list[4] = map_numeric_to_sim_type(float(new_list[4]))
 
+    print(new_list)
+
+    new_list.extend(price*6920)
+    new_list.append(original_list[2])
+    print(new_list[7])
     return new_list
+
+
