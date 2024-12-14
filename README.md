@@ -1,7 +1,7 @@
 # Smartphone Prediction Project
 
 <p align="center">
-  <img src="demo_flask.gif" width="300" alt="demo prediction realtime" />
+  <img src="demo_flask.gif" width="1100" alt="demo prediction realtime" />
 </p>
 
 ## Thành viên nhóm
