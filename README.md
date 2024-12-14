@@ -1,4 +1,7 @@
 # Smartphone Prediction Project
+<p align="center">
+  <img src="assets/random.gif" width="300" alt="random agent" />
+</p>
 ## Thành viên nhóm
 | Họ và tên       | Mã sinh viên |
 | ----------------- | -------------- | 
