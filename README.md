@@ -6,7 +6,7 @@
 | Nguyễn Minh Hiếu   | 2202     | 
 | Tống Duy Tân   | 2202     | 
 | Quản Xuân Sơn | 22022519     |
-| Phạm Quốc Tuấn | 2202     |
+| Nguyễn Quốc Tuấn | 22022553     |
 
 ## How to run 
 
