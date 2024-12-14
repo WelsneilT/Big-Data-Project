@@ -13,6 +13,8 @@
 | Quản Xuân Sơn | 22022519     |
 | Nguyễn Quốc Tuấn | 22022553     |
 
+## Demo
+[Video](https://youtu.be/AKP67NBvgaM)
 ## How to run 
 
 ### Prerequisites
