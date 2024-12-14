@@ -15,7 +15,7 @@
 Make sure you have the following installed on your system:
 
 - **Python 3.8 or higher**
-- **Java 8 or higher**
+- **Java 8**
 - **Apache Kafka**
 - **Hbase**
 - **Hadoop**
