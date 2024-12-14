@@ -2,9 +2,9 @@
 ## Thành viên nhóm
 | Họ và tên       | Mã sinh viên |
 | ----------------- | -------------- | 
-| Nguyễn Tiến Khôi | 2202     | 
-| Nguyễn Minh Hiếu   | 2202     | 
-| Tống Duy Tân   | 2202     | 
+| Nguyễn Tiến Khôi | 22022658     | 
+| Nguyễn Minh Hiếu   | 22022609     | 
+| Tống Duy Tân   | 22022538     | 
 | Quản Xuân Sơn | 22022519     |
 | Nguyễn Quốc Tuấn | 22022553     |
 
