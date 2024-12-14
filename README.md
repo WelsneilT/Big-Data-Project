@@ -80,9 +80,10 @@ http://localhost:5000
 ### Notes
 
 1. Ensure that Kafka and other dependencies are properly configured before running the `commands.bat` file.
-2. You must edit the paths in the `commands.bat` file to match the installation directories of Kafka and HBase on your machine.
-3. You can check if all services are running by `jps` when running `commands.bat`.
-4. All services must be up and running to avoid connection issues.
+2. You must running with administrator permission.
+3. You must edit the paths in the `commands.bat` file to match the installation directories of Kafka and HBase on your machine.
+4. You can check if all services are running by `jps` when running `commands.bat`.
+5. All services must be up and running to avoid connection issues.
 
 
 ---
