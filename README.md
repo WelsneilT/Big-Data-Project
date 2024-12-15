@@ -15,6 +15,8 @@
 
 ## Demo
 [Video](https://youtu.be/AKP67NBvgaM)
+## Slide
+[Slide](https://gamma.app/docs/Phone-price-prediction-in-big-data-environment-4vfig87t4kvim16?mode=doc)
 ## How to run 
 
 ### Prerequisites
